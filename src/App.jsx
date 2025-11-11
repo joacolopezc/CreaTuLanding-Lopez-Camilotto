@@ -9,7 +9,7 @@ import Cart from "./components/Cart";
 function Home() {
   return (
     <div style={{ padding: "40px", textAlign: "center" }}>
-      <h1>Bienvenidos a Web Tech</h1>
+      <h1>Bienvenidos a Tierra Mailott</h1>
       <p>Tienda de plantas medicinales y aromáticas</p>
     </div>
   );

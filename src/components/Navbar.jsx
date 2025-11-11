@@ -42,7 +42,7 @@ function Navbar() {
         margin: "0 auto"
       }}>
         <Link to="/" style={{ color: "white", textDecoration: "none" }}>
-          <h2>Web Tech</h2>
+          <h2>Tierra Mailott</h2>
         </Link>
         
         <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>

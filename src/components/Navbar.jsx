@@ -1,139 +1,114 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import CartWidget from "./CartWidget";
 
-// categorías simuladas (para el dropdown)
 const categories = [
-    { id: "smartphones", label: "Smartphones" },
-    { id: "laptops", label: "Laptops" },
-    { id: "fragrances", label: "Fragancias" },
-    { id: "skincare", label: "Cuidado de la piel" },
+  { id: "medicinales", label: "Medicinales" },
+  { id: "aromaticas", label: "Aromáticas" },
+  { id: "macetas", label: "Macetas" }
 ];
 
-export default function Navbar() {
-    const [open, setOpen] = useState(false);
-    const dropdownRef = useRef(null);
-    const navigate = useNavigate();
+function Navbar() {
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        function handleClickOutside(e) {
-        if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-            setOpen(false);
-        }
-        }
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
-
-    function goToCategory(id) {
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setOpen(false);
-        navigate(`/category/${id}`);
+      }
     }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-    return (
-    <nav
-    style={{
-        backgroundColor: "green",
-        margin: 0,
-        padding: "12px 24px",
-        display: "flex",
+  function goToCategory(id) {
+    setOpen(false);
+    navigate(`/category/${id}`);
+  }
+
+  return (
+    <nav style={{ 
+      backgroundColor: "#4CAF50", 
+      padding: "15px",
+      marginBottom: "20px"
+    }}>
+      <div style={{ 
+        display: "flex", 
         justifyContent: "space-between",
         alignItems: "center",
-    }}
-    >
-    <div>
-        <Link
-        to="/"
-        style={{
-            color: "white",
-            textDecoration: "none",
-            fontSize: 22,
-            fontWeight: "bold",
-        }}
-        >
-            Web Tech
-        </Link>
-    </div>
-    <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
+        maxWidth: "1200px",
+        margin: "0 auto"
+      }}>
         <Link to="/" style={{ color: "white", textDecoration: "none" }}>
-        Inicio
+          <h2>Web Tech</h2>
         </Link>
+        
+        <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
+          <Link to="/" style={{ color: "white", textDecoration: "none" }}>
+            Inicio
+          </Link>
 
-        {/* Dropdown de Productos */}
-        <div ref={dropdownRef} style={{ position: "relative" }}>
+          {/* Dropdown de Productos */}
+          <div ref={dropdownRef} style={{ position: "relative" }}>
             <button
-            onClick={() => setOpen((prev) => !prev)}
-            aria-expanded={open}
-            style={{
+              onClick={() => setOpen(!open)}
+              style={{
                 background: "transparent",
-                border: "1px solid white",
-                borderRadius: 4,
+                border: "none",
                 color: "white",
                 cursor: "pointer",
-                padding: "6px 8px",
-                fontSize: 16,
-            }}
+                fontSize: "16px"
+              }}
             >
-                Productos ▾
+              Productos ▾
             </button>
+
             {open && (
-            <div
-            style={{
+              <div style={{
                 position: "absolute",
-                right: 0,
-                top: "calc(100% + 8px)",
-                background: "#fff",
-                borderRadius: 8,
-                boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-                minWidth: 200,
-                zIndex: 20,
-                padding: 8,
-            }}
-            >
+                top: "100%",
+                left: 0,
+                backgroundColor: "white",
+                border: "1px solid #ddd",
+                borderRadius: "4px",
+                marginTop: "5px",
+                minWidth: "150px",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                zIndex: 1000
+              }}>
                 {categories.map((cat) => (
-                    <button
+                  <button
                     key={cat.id}
                     onClick={() => goToCategory(cat.id)}
                     style={{
-                        display: "block",
-                        width: "100%",
-                        background: "transparent",
-                        border: "none",
-                        textAlign: "left",
-                        padding: "8px 10px",
-                        cursor: "pointer",
-                        color: "#333",
+                      display: "block",
+                      width: "100%",
+                      padding: "10px 15px",
+                      border: "none",
+                      background: "transparent",
+                      textAlign: "left",
+                      cursor: "pointer",
+                      color: "#333"
                     }}
-                    >
-                        {cat.label}
-                    </button>
+                  >
+                    {cat.label}
+                  </button>
                 ))}
-                
-                <div
-                style={{
-                    borderTop: "1px solid #eee",
-                    marginTop: 6,
-                    paddingTop: 6,
-                }}
-                >
-                    <Link
-                    to="/products"
-                    onClick={() => setOpen(false)}
-                    style={{
-                        color: "#666",
-                        textDecoration: "none",
-                        fontSize: 13,
-                    }}
-                    >
-                        Ver todas las categorías
-                    </Link>
-                </div>
-            </div>
+              </div>
             )}
-            </div>
-            <Link to="/contacto" style={{ color: "white", textDecoration: "none" }}>
+          </div>
+
+          <Link to="/contacto" style={{ color: "white", textDecoration: "none" }}>
             Contacto
-            </Link>
+          </Link>
+
+          <CartWidget />
         </div>
+      </div>
     </nav>
-    );
+  );
 }
+
+export default Navbar;

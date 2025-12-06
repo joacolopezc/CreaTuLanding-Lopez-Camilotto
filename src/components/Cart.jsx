@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useCart } from "../components/CartContext";
+import { useCart } from "./CartContext";
 
 function Cart() {
   const { cart, removeFromCart, clearCart, getTotalPrice } = useCart();
@@ -8,13 +8,24 @@ function Cart() {
     return (
       <div style={{ padding: "20px", textAlign: "center" }}>
         <h2>El carrito está vacío</h2>
-        <Link to="/products">Ver productos</Link>
+        <p>No hay productos en el carrito</p>
+        <Link to="/products" style={{ 
+          display: "inline-block",
+          marginTop: "20px",
+          padding: "10px 20px",
+          backgroundColor: "#4CAF50",
+          color: "white",
+          textDecoration: "none",
+          borderRadius: "4px"
+        }}>
+          Ver productos
+        </Link>
       </div>
     );
   }
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
       <h2>Carrito de Compras</h2>
       
       {cart.map(item => (
@@ -24,21 +35,73 @@ function Cart() {
           marginBottom: "10px",
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "center"
+          alignItems: "center",
+          borderRadius: "4px"
         }}>
           <div>
             <h3>{item.title}</h3>
             <p>Precio: ${item.price}</p>
             <p>Cantidad: {item.quantity}</p>
-            <p>Subtotal: ${item.price * item.quantity}</p>
+            <p><strong>Subtotal: ${item.price * item.quantity}</strong></p>
           </div>
-          <button onClick={() => removeFromCart(item.id)}>Eliminar</button>
+          <button 
+            onClick={() => removeFromCart(item.id)}
+            style={{
+              padding: "8px 16px",
+              backgroundColor: "#f44336",
+              color: "white",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer"
+            }}
+          >
+            Eliminar
+          </button>
         </div>
       ))}
 
-      <div style={{ marginTop: "20px" }}>
+      <div style={{ 
+        marginTop: "30px",
+        padding: "20px",
+        backgroundColor: "#f9f9f9",
+        borderRadius: "4px"
+      }}>
         <h3>Total: ${getTotalPrice()}</h3>
-        <button onClick={clearCart}>Vaciar carrito</button>
+        
+        <div style={{ 
+          display: "flex", 
+          gap: "10px", 
+          marginTop: "20px",
+          flexWrap: "wrap"
+        }}>
+          <button 
+            onClick={clearCart}
+            style={{
+              padding: "10px 20px",
+              backgroundColor: "#f44336",
+              color: "white",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer"
+            }}
+          >
+            Vaciar carrito
+          </button>
+          
+          <Link 
+            to="/checkout"
+            style={{
+              padding: "10px 20px",
+              backgroundColor: "#4CAF50",
+              color: "white",
+              textDecoration: "none",
+              borderRadius: "4px",
+              display: "inline-block"
+            }}
+          >
+            Finalizar compra
+          </Link>
+        </div>
       </div>
     </div>
   );

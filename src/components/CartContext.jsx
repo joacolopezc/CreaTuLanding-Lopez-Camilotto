@@ -1,4 +1,3 @@
-// src/context/CartContext.jsx
 import { createContext, useContext, useState } from "react";
 
 const CartContext = createContext();
@@ -14,12 +13,14 @@ export function CartProvider({ children }) {
     const existe = cart.find(item => item.id === product.id);
     
     if (existe) {
+      // Si el producto ya está en el carrito, actualizar la cantidad
       setCart(cart.map(item => 
         item.id === product.id 
           ? { ...item, quantity: item.quantity + quantity }
           : item
       ));
     } else {
+      // Si no está, agregarlo
       setCart([...cart, { ...product, quantity }]);
     }
   }

@@ -32,7 +32,8 @@ function Navbar() {
     <nav style={{ 
       backgroundColor: "#4CAF50", 
       padding: "15px",
-      marginBottom: "20px"
+      marginBottom: "20px",
+      boxShadow: "0 2px 4px rgba(0,0,0,0.1)"
     }}>
       <div style={{ 
         display: "flex", 
@@ -42,11 +43,18 @@ function Navbar() {
         margin: "0 auto"
       }}>
         <Link to="/" style={{ color: "white", textDecoration: "none" }}>
-          <h2>Tierra Mailott</h2>
+          <h2 style={{ margin: 0 }}>🌿 Tierra Mailott</h2>
         </Link>
         
         <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
-          <Link to="/" style={{ color: "white", textDecoration: "none" }}>
+          <Link 
+            to="/" 
+            style={{ 
+              color: "white", 
+              textDecoration: "none",
+              fontSize: "16px"
+            }}
+          >
             Inicio
           </Link>
 
@@ -92,6 +100,8 @@ function Navbar() {
                       cursor: "pointer",
                       color: "#333"
                     }}
+                    onMouseEnter={(e) => e.target.style.backgroundColor = "#f5f5f5"}
+                    onMouseLeave={(e) => e.target.style.backgroundColor = "transparent"}
                   >
                     {cat.label}
                   </button>
@@ -99,10 +109,6 @@ function Navbar() {
               </div>
             )}
           </div>
-
-          <Link to="/contacto" style={{ color: "white", textDecoration: "none" }}>
-            Contacto
-          </Link>
 
           <CartWidget />
         </div>

@@ -16,15 +16,61 @@ function ItemCount({ stock, onAdd }) {
   }
 
   return (
-    <div>
-      <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-        <button onClick={restar}>-</button>
-        <span>{cantidad}</span>
-        <button onClick={sumar}>+</button>
+    <div style={{ marginTop: "20px" }}>
+      <div style={{ 
+        display: "flex", 
+        gap: "10px", 
+        alignItems: "center",
+        marginBottom: "10px"
+      }}>
+        <button 
+          onClick={restar}
+          style={{
+            width: "40px",
+            height: "40px",
+            fontSize: "20px",
+            border: "1px solid #4CAF50",
+            backgroundColor: "white",
+            cursor: "pointer",
+            borderRadius: "4px"
+          }}
+        >
+          -
+        </button>
+        <span style={{ 
+          fontSize: "20px",
+          minWidth: "30px",
+          textAlign: "center"
+        }}>
+          {cantidad}
+        </span>
+        <button 
+          onClick={sumar}
+          style={{
+            width: "40px",
+            height: "40px",
+            fontSize: "20px",
+            border: "1px solid #4CAF50",
+            backgroundColor: "white",
+            cursor: "pointer",
+            borderRadius: "4px"
+          }}
+        >
+          +
+        </button>
       </div>
       <button 
         onClick={() => onAdd(cantidad)}
-        style={{ marginTop: "10px" }}
+        style={{ 
+          width: "100%",
+          padding: "12px",
+          backgroundColor: "#4CAF50",
+          color: "white",
+          border: "none",
+          borderRadius: "4px",
+          fontSize: "16px",
+          cursor: "pointer"
+        }}
       >
         Agregar al carrito
       </button>

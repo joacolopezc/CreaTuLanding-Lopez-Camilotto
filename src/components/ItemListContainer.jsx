@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getProductos, getProductosPorCategoria } from "../data/mockData";
+import { getProductos, getProductosPorCategoria } from "../data/firestore";
 import ItemList from "./ItemList";
 
 function ItemListContainer() {
@@ -12,11 +12,13 @@ function ItemListContainer() {
     setLoading(true);
     
     if (categoryId) {
+      // Obtener productos por categoría desde Firestore
       getProductosPorCategoria(categoryId).then(data => {
         setItems(data);
         setLoading(false);
       });
     } else {
+      // Obtener todos los productos desde Firestore
       getProductos().then(data => {
         setItems(data);
         setLoading(false);
@@ -24,7 +26,13 @@ function ItemListContainer() {
     }
   }, [categoryId]);
 
-  if (loading) return <p style={{ padding: "20px" }}>Cargando productos...</p>;
+  if (loading) {
+    return (
+      <div style={{ padding: "20px", textAlign: "center" }}>
+        <p>Cargando productos...</p>
+      </div>
+    );
+  }
 
   return (
     <div style={{ padding: "20px" }}>
